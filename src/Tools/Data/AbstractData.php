@@ -49,26 +49,32 @@ abstract class AbstractData
     final public function equalsConditions(array $conditions)
     {
         foreach ($conditions as $name => $value) {
-            if (!property_exists($this, $name)) {
-                return false;
+            if (property_exists($this, $name) && $this->areValuesTheSame($this->$name, $value)) {
+                continue;
             }
-    
-            $prop = $this->$name;
             
-            if ($prop instanceof Id) {
-                if (!$prop->equals($value)) {
-                    return false;
-                }
-            } elseif ($value instanceof Id) {
-                if (!$value->equals($prop)) {
-                    return false;
-                }
-            } elseif ($prop !== $value) {
-                return false;
-            }
+            return false;
         }
         
         return true;
+    }
+    
+    /**
+     * @param mixed $prop
+     * @param mixed $value
+     * @return bool
+     */
+    protected function areValuesTheSame($prop, $value)
+    {
+        if ($prop instanceof Id) {
+            return $prop->equals($value);
+        }
+        
+        if ($value instanceof Id) {
+            return $value->equals($prop);
+        }
+        
+        return $prop === $value;
     }
     
     /**
