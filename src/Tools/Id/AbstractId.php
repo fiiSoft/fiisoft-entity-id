@@ -45,8 +45,8 @@ abstract class AbstractId implements Id
             return true;
         }
     
-        if (is_object($id)) {
-            return $id instanceof $this && $this->value === $id->value;
+        if ($id instanceof $this) {
+            return $this->value === $id->value;
         }
         
         return $this->value === $id;
