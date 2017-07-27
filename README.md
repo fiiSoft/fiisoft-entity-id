@@ -4,24 +4,28 @@ Very simple abstraction for ID of entities. By now it supports only the simplest
 
 My advice is - do not use it unless you are enough strong mentally to immune for such bad code. 
 
-#### Id
+#### `Id`
 
 Interface for whole family of Id classes.
 
-#### AbstractId
+#### `AbstractId`
 
 Base abstract class for Id family with some implementation.
 
-#### IntegerId
+#### `IntegerId`
 
 Abstract class for implementations that encapsulate single integer value.
 
-#### TwoIntegersId
+#### `TwoColumnsId`
+
+Abstract class for implementation that encapsulate compound keys composed of pair of arbitrary values.
+
+#### `TwoIntegersId`
 
 Abstract class for implementation that encapsulate compound keys composed of pair of integers values.
 
 ----------------------------------------------------------
 
-#### AbstractData
+#### `AbstractData`
 
 Additional class designed as base for DTO classes that use Id objects. 

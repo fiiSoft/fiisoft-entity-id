@@ -4,7 +4,7 @@ namespace FiiSoft\Tools\Id;
 
 use InvalidArgumentException;
 
-abstract class TwoIntegersId extends AbstractId
+abstract class TwoIntegersId extends TwoColumnsId
 {
     /**
      * @param mixed $value
@@ -61,13 +61,5 @@ abstract class TwoIntegersId extends AbstractId
         }
         
         $this->value = $value;
-    }
-    
-    /**
-     * @return string
-     */
-    final public function asString()
-    {
-        return implode(',', $this->value);
     }
 }
