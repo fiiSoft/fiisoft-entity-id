@@ -2,6 +2,10 @@
 
 All important changes to `fiisoft-entity-id` will be documented in this file
 
+## 1.4.0
+
+Added abstract class StringId to encapsulate string IDs.
+
 ## 1.3.0
 
 Abstract class TwoColumnsId added as parent class for TwoIntegersId

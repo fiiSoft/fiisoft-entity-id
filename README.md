@@ -24,6 +24,10 @@ Abstract class for implementation that encapsulate compound keys composed of pai
 
 Abstract class for implementation that encapsulate compound keys composed of pair of integers values.
 
+#### `StringId`
+
+Abstract class for implementations that encapsulate single string value.
+
 ----------------------------------------------------------
 
 #### `AbstractData`
