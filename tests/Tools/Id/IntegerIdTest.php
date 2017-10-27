@@ -2,8 +2,10 @@
 
 namespace FiiSoft\Test\Tools\Id;
 
+use FiiSoft\Test\Stub\OtherIntegerId;
 use FiiSoft\Test\Stub\SimpleDoubleIntegersId;
 use FiiSoft\Test\Stub\SimpleIntegerId;
+use FiiSoft\Tools\Id\Id;
 
 class IntegerIdTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,8 +14,19 @@ class IntegerIdTest extends \PHPUnit_Framework_TestCase
         $id = new SimpleIntegerId(15);
         
         self::assertSame(15, $id->value());
+    }
+    
+    public function test_it_can_be_casted_to_string()
+    {
+        $id = new SimpleIntegerId(15);
+    
         self::assertSame('15', $id->asString());
         self::assertSame('15', (string) $id);
+    }
+    
+    public function test_it_can_tell_if_is_equal_to_other_value()
+    {
+        $id = new SimpleIntegerId(15);
         
         self::assertTrue($id->equals($id));
         self::assertTrue($id->equals(new SimpleIntegerId(15)));
@@ -62,10 +75,19 @@ class IntegerIdTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Invalid argument
+     * @dataProvider getDataForTestItDisallowsToCreateObjectFromOtherObjectOfDifferentType
      */
-    public function test_it_disallows_to_create_object_from_other_object_of_different_type()
+    public function test_it_disallows_to_create_object_from_other_object_of_different_type(Id $id)
     {
-        SimpleIntegerId::from(new SimpleDoubleIntegersId([14, 22]));
+        SimpleIntegerId::from($id);
+    }
+    
+    public function getDataForTestItDisallowsToCreateObjectFromOtherObjectOfDifferentType()
+    {
+        return [
+            [new SimpleDoubleIntegersId([14, 22])],
+            [new OtherIntegerId(10)],
+        ];
     }
     
     public function test_it_allows_to_create_id_object_from_integer_by_static_factory_method()
@@ -80,5 +102,49 @@ class IntegerIdTest extends \PHPUnit_Framework_TestCase
         $id = SimpleIntegerId::from('15');
         self::assertInstanceOf(SimpleIntegerId::class, $id);
         self::assertSame(15, $id->value());
+    }
+    
+    public function test_it_allows_to_compare_values_of_id()
+    {
+        $id = SimpleIntegerId::from(20);
+        $other = SimpleIntegerId::from(20);
+        
+        self::assertSame(0, $id->compare($other));
+        self::assertSame(0, $other->compare($id));
+        
+        $greather = SimpleIntegerId::from(30);
+        
+        self::assertTrue($id->compare($greather) < 0);
+        self::assertTrue($greather->compare($id) > 0);
+        
+        $lower = SimpleIntegerId::from(10);
+        
+        self::assertTrue($id->compare($lower) > 0);
+        self::assertTrue($lower->compare($id) < 0);
+    }
+    
+    public function test_it_can_be_sorted_thanks_to_compare_method()
+    {
+        $id1 = SimpleIntegerId::from(15);
+        $id2 = SimpleIntegerId::from(5);
+        $id3 = SimpleIntegerId::from(25);
+        $id4 = SimpleIntegerId::from(10);
+        
+        $ids = [$id1, $id2, $id3, $id4];
+        usort($ids, function (Id $first, Id $second) {return $first->compare($second);});
+        
+        $expected = [$id2, $id4, $id1, $id3];
+        self::assertSame($expected, $ids);
+    }
+    
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function test_compare_with_object_of_not_the_same_type_is_not_allowed()
+    {
+        $id = new SimpleIntegerId(15);
+        $other = new OtherIntegerId(15);
+        
+        $id->compare($other);
     }
 }

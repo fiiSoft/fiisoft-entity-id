@@ -53,4 +53,18 @@ abstract class IntegerId extends AbstractId
     {
         return (string) $this->value;
     }
+    
+    /**
+     * @param mixed $other
+     * @throws InvalidArgumentException
+     * @return int integer less, equal or greather than 0
+     */
+    final public function compare($other)
+    {
+        if ($other instanceof $this) {
+            return $this->value < $other->value ? -1 : ($this->value > $other->value ? 1 : 0);
+        }
+        
+        throw new InvalidArgumentException('Invalid type of param other');
+    }
 }

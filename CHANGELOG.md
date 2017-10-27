@@ -2,6 +2,10 @@
 
 All important changes to `fiisoft-entity-id` will be documented in this file
 
+## 2.0.0
+
+Two new methods added to interface Id: compare and __toString.
+
 ## 1.4.0
 
 Added abstract class StringId to encapsulate string IDs.

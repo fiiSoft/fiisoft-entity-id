@@ -62,4 +62,26 @@ abstract class TwoIntegersId extends TwoColumnsId
         
         $this->value = $value;
     }
+    
+    /**
+     * @param mixed $other
+     * @throws InvalidArgumentException
+     * @return int integer less, equal or greather than 0
+     */
+    final public function compare($other)
+    {
+        if ($other instanceof $this) {
+            if ($this->value[0] < $other->value[0]) {
+                return -1;
+            }
+    
+            if ($this->value[0] > $other->value[0]) {
+                return 1;
+            }
+            
+            return $this->value[1] < $other->value[1] ? -1 : ($this->value[1] > $other->value[1] ? 1 : 0);
+        }
+    
+        throw new InvalidArgumentException('Invalid type of param other');
+    }
 }

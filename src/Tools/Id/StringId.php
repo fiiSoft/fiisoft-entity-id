@@ -3,7 +3,6 @@
 namespace FiiSoft\Tools\Id;
 
 use InvalidArgumentException;
-use LogicException;
 
 abstract class StringId extends AbstractId
 {
@@ -22,12 +21,11 @@ abstract class StringId extends AbstractId
     }
     
     /**
-     * @throws LogicException
-     * @return integer
+     * @return string
      */
     protected function generate()
     {
-        throw new LogicException('Operation not supported');
+        return str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
     }
     
     /**
@@ -50,5 +48,19 @@ abstract class StringId extends AbstractId
     final public function asString()
     {
         return $this->value;
+    }
+    
+    /**
+     * @param mixed $other
+     * @throws InvalidArgumentException
+     * @return int integer less, equal or greather than 0
+     */
+    final public function compare($other)
+    {
+        if ($other instanceof $this) {
+            return strcmp($this->value, $other->value);
+        }
+    
+        throw new InvalidArgumentException('Invalid type of param other');
     }
 }
