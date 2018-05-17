@@ -2,6 +2,11 @@
 
 All important changes to `fiisoft-entity-id` will be documented in this file
 
+## 2.1.0
+
+* Added interface Entity and class GenericEntity
+* File composer.lock excluded from versioning (by .gitignore)
+
 ## 2.0.0
 
 Two new methods added to interface Id: compare and __toString.

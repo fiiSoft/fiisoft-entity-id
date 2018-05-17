@@ -1,11 +1,11 @@
 {
     "name": "fiisoft/entity-id",
     "type": "library",
-    "description": "Very simple abstraction for ID objects.",
+    "description": "Very simple abstractions and implementations for Entity and Id ADTs.",
     "keywords": ["id"],
     "homepage": "https://github.com/fiiSoft/fiisoft-entity-id",
     "license": "MIT",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "authors": [
         {
             "name": "FiiSoft",
